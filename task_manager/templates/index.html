@@ -1,1 +1,10 @@
-<h1>Hello!</h1>
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+{% block bootstrap5_title %}{% trans 'Task manager' %}{% endblock %}
+
+{% block bootstrap5_content %}
+
+{% endblock %}

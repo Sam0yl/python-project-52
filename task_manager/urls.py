@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from task_manager import views
+from django.views.i18n import set_language
 
 urlpatterns = [
     path('', views.index),
