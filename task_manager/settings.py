@@ -36,6 +36,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'webserver', 'python-project-52-produ
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.railway.app',
+]
 
 # Application definition
 
