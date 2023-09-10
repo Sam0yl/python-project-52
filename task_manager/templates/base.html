@@ -9,7 +9,7 @@
          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
          
          <!-- Page title -->
-         <title>{% block bootstrap5_title %}django-bootstrap5 template title{% endblock %}</title>
+         <title>{% block bootstrap5_title %}{% endblock %}</title>
          
          <!-- Bootstrap CSS -->
          {% bootstrap_css %}
@@ -27,27 +27,57 @@
             <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans 'Users' %}</a>
+                        <a class="nav-link" href="{% url 'users_list' %}">{% trans 'Users' %}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans 'Login' %}</a>
+                        <a class="nav-link" href="#">{% trans 'Statuses' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans 'Registration' %}</a>
+                        <a class="nav-link" href="#">{% trans 'Tags' %}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{% trans 'Tasks' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">{% trans 'Login' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users_create' %}">{% trans 'Registration' %}</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
-        {% block bootstrap5_content %}
         
-        <!-- CONTENT -->
-        
-        {% endblock %}
+        <div class="container wrapper flex-grow-1">
+            {% if messages %}
+                {% bootstrap_messages %}
+            {% endif %}
+            {% block bootstrap5_content %}
+            
+            <!-- CONTENT -->
+            
+            {% endblock %}
+        </div>
+
         <footer>
             <div class="container my-5 pt-4 border-top fixed-bottom">
-                <!-- Добавить переключение языков! -->
+                {% get_available_languages as LANGUAGES %}
+                {% for lang in LANGUAGES %}
+                {% if LANGUAGE_CODE == lang.0 %}
+                {{lang.1}} ({{lang.0}})
+                {% else %}
+                <a href="{% url 'set_language' %}?l={{lang.0}}">{{lang.1}} ({{lang.0}})</a>
+                {% endif %}
+                <br>
+                {% endfor %}
             </div>
         </footer>
     </body>
