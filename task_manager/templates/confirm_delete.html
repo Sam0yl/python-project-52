@@ -3,13 +3,13 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
 
-{% block bootstrap5_title %}{% trans 'User deletion' %}{% endblock %}
+{% block bootstrap5_title %}{{ title }}{% endblock %}
 
 {% block bootstrap5_content %}
-<h1 class="my-4">{% translate 'User deletion' %}</h1>
+<h1 class="my-4">{{ title }}</h1>
 <form method="post">
     {% csrf_token %}
-    <p>{% translate 'Are you sure you want to delete' %} {{ user.first_name }} {{ user.last_name }}?</p>
+    <p>{% translate 'Are you sure you want to delete' %} {{ object }}?</p>
     <input class="btn btn-danger" type="submit" value="{% translate 'Yes, delete' %}">
 </form>
 

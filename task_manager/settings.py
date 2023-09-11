@@ -31,7 +31,12 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'webserver', 'python-project-52-production-9c23.up.railway.app']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'webserver',
+    'python-project-52-production-9c23.up.railway.app'
+]
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
@@ -52,6 +57,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'task_manager',
     'task_manager.users',
+    'task_manager.statuses',
 ]
 
 MIDDLEWARE = [

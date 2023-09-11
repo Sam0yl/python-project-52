@@ -23,8 +23,9 @@ urlpatterns = [
     path('', views.index, name='home_page'),
     path('login/', views.UserLogin.as_view(), name='login'),
     path('logout/', views.UserLogout.as_view(), name='logout'),
-    path('users/', include('task_manager.users.urls')),
     path(r'set-language/', views.set_language, name='set_language'),
+    path('users/', include('task_manager.users.urls')),
+    path('statuses/', include('task_manager.statuses.urls')),
     path('admin/', admin.site.urls),
 ]
 

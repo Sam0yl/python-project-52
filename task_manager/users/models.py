@@ -7,3 +7,6 @@ class User(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=30, blank=False)
 
     USERNAME_FIELD = 'username'
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'

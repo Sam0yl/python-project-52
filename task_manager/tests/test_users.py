@@ -34,6 +34,7 @@ class UsersCRUDTest(TestCase):
             )
         
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
         new_user = User.objects.get(username='TUS')
         self.assertEqual(new_user.first_name, 'Testuser')
     

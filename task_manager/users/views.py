@@ -17,9 +17,10 @@ class IndexView(ListView):
 class UserCreate(SuccessMessageMixin, CreateView):
     model = User
     form_class = CustomUserCreationForm
-    template_name = 'users/create.html'
+    template_name = 'form.html'
     success_message = _('User created successfully')
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy('login')
+    extra_context = {'title': _('Registration'), 'button': _('Sign up')}
 
 
 class CustomLoginRequiredMixin(LoginRequiredMixin):
@@ -41,14 +42,17 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
 class UserUpdate(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = CustomUserChangeForm
-    template_name = 'users/update.html'
+    template_name = 'form.html'
     success_message = _('User successfully changed')
-    success_url = reverse_lazy("users_list")
+    success_url = reverse_lazy('users_list')
+    extra_context = {'title': _('User change'), 'button': _('Change')}
 
 class UserDelete(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = User
+    template_name = 'confirm_delete.html'
     success_message = _('User successfully deleted')
-    success_url = reverse_lazy("users_list")
+    success_url = reverse_lazy('users_list')
+    extra_context = {'title': _('User deletion'),}
     
 
     
