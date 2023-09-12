@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import ProtectedError
 from task_manager.users.forms import CustomUserCreationForm, CustomUserChangeForm
 
 
@@ -53,6 +54,14 @@ class UserDelete(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = _('User successfully deleted')
     success_url = reverse_lazy('users_list')
     extra_context = {'title': _('User deletion'),}
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(request, _("Can't delete a user because it's in use"))
+            return redirect(reverse_lazy('statuses_list'))
     
 
     

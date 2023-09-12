@@ -39,7 +39,7 @@
                         <a class="nav-link" href="#">{% trans 'Tags' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{% trans 'Tasks' %}</a>
+                        <a class="nav-link" href="{% url 'tasks_list' %}">{% trans 'Tasks' %}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
@@ -58,17 +58,17 @@
         
         <div class="container wrapper flex-grow-1">
             {% if messages %}
-                {% bootstrap_messages %}
+            {% bootstrap_messages %}
             {% endif %}
             {% block bootstrap5_content %}
-            
+
             <!-- CONTENT -->
-            
+
             {% endblock %}
         </div>
 
         <footer>
-            <div class="container my-5 pt-4 border-top fixed-bottom">
+            <div class="container my-5 pt-4 border-top">
                 {% get_available_languages as LANGUAGES %}
                 {% for lang in LANGUAGES %}
                 {% if LANGUAGE_CODE == lang.0 %}

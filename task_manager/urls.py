@@ -26,6 +26,7 @@ urlpatterns = [
     path(r'set-language/', views.set_language, name='set_language'),
     path('users/', include('task_manager.users.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
+    path('tasks/', include('task_manager.tasks.urls')),
     path('admin/', admin.site.urls),
 ]
 
