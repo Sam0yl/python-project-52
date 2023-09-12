@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
-from django.db.models import ProtectedError
 from django.contrib import messages
 from task_manager.tasks.models import Task
 
@@ -45,3 +44,7 @@ class TaskDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             messages.error(self.request, _("Task can be deleted only by its author"))
             return redirect('tasks_list')
         return super().dispatch(request, *args, **kwargs)
+
+class TaskView(DetailView):
+    model = Task
+    template_name = 'tasks/task_view.html'
