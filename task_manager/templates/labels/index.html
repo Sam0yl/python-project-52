@@ -3,11 +3,11 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
 
-{% block bootstrap5_title %}{% trans 'Statuses' %}{% endblock %}
+{% block bootstrap5_title %}{% trans 'Labels' %}{% endblock %}
 
 {% block bootstrap5_content %}
-        <h1 class="my-4">{% trans 'Statuses' %}</h1>
-        <a class="nav-link" href="{% url 'statuses_create' %}">{% trans 'Create status' %}</a>
+        <h1 class="my-4">{% trans 'Labels' %}</h1>
+        <a class="nav-link" href="{% url 'labels_create' %}">{% trans 'Create label' %}</a>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -18,15 +18,15 @@
                 </tr>
             </thead>
             <tbody>
-                {% for status in status_list %}
+                {% for label in label_list %}
                     <tr>
-                        <td>{{ status.id }}</td>
-                        <td>{{ status.name }}</td>
-                        <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
+                        <td>{{ label.id }}</td>
+                        <td>{{ label.name }}</td>
+                        <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
                         <td>
-                            <a href="{{ status.id }}/update/">{% trans 'Update' %}</a>
+                            <a href="{{ label.id }}/update/">{% trans 'Update' %}</a>
                             <br>
-                            <a href="{{ status.id }}/delete/">{% trans 'Delete' %}</a>
+                            <a href="{{ label.id }}/delete/">{% trans 'Delete' %}</a>
                         </td>
                     </tr>
                 {% endfor %}

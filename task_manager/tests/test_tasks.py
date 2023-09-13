@@ -105,17 +105,6 @@ class TasksCRUDTest(TestCase):
         self.assertEqual(unauth_response.status_code, 302)
         test_task = Task.objects.get(id=self.task.id)
         self.assertEqual(self.task.name, test_task.name)
-        
-        # # authenticated user - other
-
-        # self.client.force_login(self.user2)
-        # auth_response = self.client.post(
-        #     reverse('tasks_delete', kwargs={'pk': self.task.id})
-        # )
-        # self.assertEqual(auth_response.status_code, 302)
-        # self.assertRedirects(auth_response, reverse('tasks_list'))
-        # with self.assertRaises(Task.DoesNotExist):
-        #     Task.objects.get(id=self.task.id)
 
         # authenticated user - owner
         
