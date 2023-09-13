@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
+from django_filters.views import FilterView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
@@ -8,7 +9,7 @@ from django.contrib import messages
 from task_manager.tasks.models import Task
 
 # Create your views here.
-class IndexView(ListView):
+class IndexView(FilterView):
     model = Task
     template_name = 'tasks/index.html'
 

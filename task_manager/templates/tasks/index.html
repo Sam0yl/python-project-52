@@ -8,6 +8,15 @@
 {% block bootstrap5_content %}
         <h1 class="my-4">{% trans 'Tasks' %}</h1>
         <a class="nav-link" href="{% url 'tasks_create' %}">{% trans 'Create task' %}</a>
+        <div class="card mb-3">
+            <div class="card-body bg-light">
+                <form method="get">
+                    {% csrf_token %}
+                    {% bootstrap_form filter.form %}
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Show' %}">
+                </form>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
