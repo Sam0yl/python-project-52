@@ -132,7 +132,6 @@ LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-USE_L10N = True
 LANGUAGE_SESSION_KEY = 'session_language_task_manager'
 LANGUAGE_COOKIE_NAME = 'cookie_language_task_manager'
 

@@ -7,8 +7,12 @@ from task_manager.labels.models import Label
 
 class TaskFilter(FilterSet):
 
-    labels = ModelChoiceFilter(label=_('Label'), queryset=Label.objects.all(), widget=Select)
-    own_tasks = BooleanFilter(label=_('Just your tasks'), method='get_own_tasks', widget=CheckboxInput)
+    labels = ModelChoiceFilter(
+        label=_('Label'), queryset=Label.objects.all(), widget=Select
+    )
+    own_tasks = BooleanFilter(
+        label=_('Just your tasks'), method='get_own_tasks', widget=CheckboxInput
+    )
 
     class Meta:
         model = Task
