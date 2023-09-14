@@ -30,3 +30,8 @@ class UserLogout(LogoutView):
         logout(request)
         messages.info(request, _("You're logged out"))
         return redirect(self.next_page)
+
+def rollbar(request):
+    a = None
+    a.hello() # Creating an error with an invalid line of code
+    return HttpResponse("Hello, world. You're at the pollapp index.")

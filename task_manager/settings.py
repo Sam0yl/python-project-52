@@ -155,9 +155,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ROLLBAR_ACCESS_TOKEN = os.getenv("ROLLBAR_ACCESS_TOKEN")
 
-ROLLBAR = {
+if not DEBUG:
+    ROLLBAR = {
     'access_token': ROLLBAR_ACCESS_TOKEN,
-    'environment': 'development' if DEBUG else 'production',
+    'environment': 'production',
     'code_version': '1.0',
     'root': BASE_DIR,
 }
