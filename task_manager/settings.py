@@ -157,8 +157,8 @@ ROLLBAR_ACCESS_TOKEN = os.getenv("ROLLBAR_ACCESS_TOKEN")
 
 if not DEBUG:
     ROLLBAR = {
-    'access_token': ROLLBAR_ACCESS_TOKEN,
-    'environment': 'production',
-    'code_version': '1.0',
-    'root': BASE_DIR,
-}
+        'access_token': ROLLBAR_ACCESS_TOKEN,
+        'environment': 'production',
+        'code_version': '1.0',
+        'root': BASE_DIR,
+    }

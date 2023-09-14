@@ -9,29 +9,29 @@ class TasksCRUDTest(TestCase):
 
     def setUp(self):
         self.user1 = User.objects.create(
-            first_name = 'Bruce',
-            last_name = 'Lee',
-            username = 'BruLee',
-            password = 'kiaaa'
+            first_name='Bruce',
+            last_name='Lee',
+            username='BruLee',
+            password='kiaaa'
         )
         self.user2 = User.objects.create(
-            first_name = 'Chuck',
-            last_name = 'Norris',
-            username = 'ChuNor',
-            password = 'dong'
+            first_name='Chuck',
+            last_name='Norris',
+            username='ChuNor',
+            password='dong'
         )
         self.status = Status.objects.create(
-            name = 'Fight!'
+            name='Fight!'
         )
         self.task = Task.objects.create(
-            name = 'test task',
-            description = 'test task for Bruce Lee',
-            author = self.user1,
-            executor = self.user1,
-            status = self.status
+            name='test task',
+            description='test task for Bruce Lee',
+            author=self.user1,
+            executor=self.user1,
+            status=self.status
         )
 
-    #CREATE
+    # CREATE
 
     def test_create_task(self):
 
@@ -49,7 +49,7 @@ class TasksCRUDTest(TestCase):
         self.assertEqual(unauth_response.status_code, 302)
         with self.assertRaises(Task.DoesNotExist):
             Task.objects.get(name='new task')
-        
+
         # authenticated user
 
         self.client.force_login(self.user1)
@@ -59,8 +59,8 @@ class TasksCRUDTest(TestCase):
         self.assertRedirects(auth_response, reverse('tasks_list'))
         new_task_in_bd = Task.objects.get(id=2)
         self.assertEqual(new_task_in_bd.name, 'new task')
-    
-    #UPDATE
+
+    # UPDATE
 
     def test_update_task(self):
 
@@ -74,7 +74,7 @@ class TasksCRUDTest(TestCase):
         self.assertEqual(self.task.name, 'test task')
         with self.assertRaises(Task.DoesNotExist):
             Task.objects.get(name='task for Bruce')
-        
+
         # authenticated user
 
         self.client.force_login(self.user2)
@@ -107,7 +107,7 @@ class TasksCRUDTest(TestCase):
         self.assertEqual(self.task.name, test_task.name)
 
         # authenticated user - owner
-        
+
         self.client.force_login(self.user1)
         auth_response = self.client.post(
             reverse('tasks_delete', kwargs={'pk': self.task.id})

@@ -8,10 +8,12 @@ from django.db.models import ProtectedError
 from django.contrib import messages
 from task_manager.labels.models import Label
 
+
 # Create your views here.
 class IndexView(ListView):
     model = Label
     template_name = 'labels/index.html'
+
 
 class LabelCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Label
@@ -21,6 +23,7 @@ class LabelCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     fields = ['name']
     extra_context = {'title': _('Create label'), 'button': _('Create')}
 
+
 class LabelUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Label
     template_name = 'form.html'
@@ -29,12 +32,13 @@ class LabelUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     fields = ['name']
     extra_context = {'title': _('Change label'), 'button': _('Change')}
 
+
 class LabelDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Label
     template_name = 'confirm_delete.html'
     success_message = _('Label successfully deleted')
     success_url = reverse_lazy('labels_list')
-    extra_context = {'title': _('Label deletion'),}
+    extra_context = {'title': _('Label deletion')}
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

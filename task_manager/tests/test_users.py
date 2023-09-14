@@ -2,24 +2,25 @@ from django.test import TestCase
 from django.urls import reverse
 from task_manager.users.models import User
 
+
 class UsersCRUDTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            first_name = 'Bruce',
-            last_name = 'Lee',
-            username = 'BruLee',
-            password = 'kiaaa'
+            first_name='Bruce',
+            last_name='Lee',
+            username='BruLee',
+            password='kiaaa'
         )
 
         self.other_user = User.objects.create(
-            first_name = 'Chuck',
-            last_name = 'Norris',
-            username = 'ChuNor',
-            password = 'dong'
+            first_name='Chuck',
+            last_name='Norris',
+            username='ChuNor',
+            password='dong'
         )
-    
-    #CREATE
+
+    # CREATE
 
     def test_create_user(self):
         response = self.client.post(
@@ -31,14 +32,14 @@ class UsersCRUDTest(TestCase):
                 'password1': 'tester',
                 'password2': 'tester'
             }
-            )
-        
+        )
+
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('login'))
         new_user = User.objects.get(username='TUS')
         self.assertEqual(new_user.first_name, 'Testuser')
-    
-    #UPDATE
+
+    # UPDATE
 
     def test_update_unauthenticated_user(self):
         response = self.client.post(

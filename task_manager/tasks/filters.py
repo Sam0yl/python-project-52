@@ -12,8 +12,8 @@ class TaskFilter(FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status','executor','labels', 'own_tasks']
-    
+        fields = ['status', 'executor', 'labels', 'own_tasks']
+
     def get_own_tasks(self, queryset, arg, value):
         if value:
             return queryset.filter(author=self.request.user)

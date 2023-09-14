@@ -6,6 +6,7 @@ from task_manager.labels.models import Label
 
 # Create your models here.
 
+
 class Task(models.Model):
     name = models.CharField(verbose_name=_('Name'), max_length=40, unique=True, blank=False)
     description = models.TextField(verbose_name=_('Description'), max_length=1000, blank=True)
@@ -17,6 +18,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class LabelProtection(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)

@@ -5,12 +5,13 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from . import settings
 
 
 def index(request):
     return render(request, 'index.html')
+
 
 def set_language(request):
     lang = request.GET.get('l', 'en')
@@ -19,9 +20,11 @@ def set_language(request):
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
     return response
 
+
 class UserLogin(SuccessMessageMixin, LoginView):
     template_name = 'login.html'
     success_message = _("You're logged in")
+
 
 class UserLogout(LogoutView):
     next_page = reverse_lazy('home_page')
@@ -30,8 +33,3 @@ class UserLogout(LogoutView):
         logout(request)
         messages.info(request, _("You're logged out"))
         return redirect(self.next_page)
-
-def rollbar(request):
-    a = None
-    a.hello() # Creating an error with an invalid line of code
-    return HttpResponse("Hello, world. You're at the pollapp index.")

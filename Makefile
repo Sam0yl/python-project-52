@@ -1,3 +1,6 @@
+install:
+	poetry install
+
 dev:
 	poetry run python manage.py runserver
 
@@ -11,3 +14,12 @@ lint:
 
 test:
 	poetry run python manage.py test --verbosity 2
+
+test-coverage:
+	poetry run coverage run manage.py test
+	poetry run coverage xml
+
+selfcheck:
+	poetry check
+
+check: selfcheck test lint

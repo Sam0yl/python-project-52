@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.shortcuts import redirect
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from task_manager.users.models import User
 from django.utils.translation import gettext_lazy as _
@@ -14,6 +14,7 @@ from task_manager.users.forms import CustomUserCreationForm, CustomUserChangeFor
 class IndexView(ListView):
     model = User
     template_name = 'users/index.html'
+
 
 class UserCreate(SuccessMessageMixin, CreateView):
     model = User
@@ -38,7 +39,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             messages.error(self.request, _("You don't have permission to modify another user."))
             return redirect('users_list')
         return super().dispatch(request, *args, **kwargs)
-            
+
 
 class UserUpdate(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
@@ -48,12 +49,13 @@ class UserUpdate(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('users_list')
     extra_context = {'title': _('User change'), 'button': _('Change')}
 
+
 class UserDelete(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'confirm_delete.html'
     success_message = _('User successfully deleted')
     success_url = reverse_lazy('users_list')
-    extra_context = {'title': _('User deletion'),}
+    extra_context = {'title': _('User deletion')}
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -62,6 +64,3 @@ class UserDelete(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
         except ProtectedError:
             messages.error(request, _("Can't delete a user because it's in use"))
             return redirect(reverse_lazy('statuses_list'))
-    
-
-    

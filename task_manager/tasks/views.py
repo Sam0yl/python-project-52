@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
+from django.shortcuts import redirect
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django_filters.views import FilterView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,10 +8,12 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from task_manager.tasks.models import Task
 
+
 # Create your views here.
 class IndexView(FilterView):
     model = Task
     template_name = 'tasks/index.html'
+
 
 class TaskCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
@@ -25,6 +27,7 @@ class TaskCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     template_name = 'form.html'
@@ -33,18 +36,20 @@ class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     fields = ['name', 'description', 'status', 'executor', 'labels']
     extra_context = {'title': _('Change task'), 'button': _('Change')}
 
+
 class TaskDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'confirm_delete.html'
     success_message = _('Task successfully deleted')
     success_url = reverse_lazy('tasks_list')
-    extra_context = {'title': _('Task deletion'),}
+    extra_context = {'title': _('Task deletion')}
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.id != self.get_object().author.id:
             messages.error(self.request, _("Task can be deleted only by its author"))
             return redirect('tasks_list')
         return super().dispatch(request, *args, **kwargs)
+
 
 class TaskView(DetailView):
     model = Task
