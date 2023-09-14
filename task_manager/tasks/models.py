@@ -9,7 +9,7 @@ from task_manager.labels.models import Label
 
 class Task(models.Model):
     name = models.CharField(
-        verbose_name=_('Name'),max_length=40, unique=True, blank=False
+        verbose_name=_('Name'), max_length=40, unique=True, blank=False
     )
     description = models.TextField(
         verbose_name=_('Description'), max_length=1000, blank=True
